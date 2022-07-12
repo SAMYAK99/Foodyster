@@ -1,10 +1,11 @@
-package com.projects.trending.foodyster
+package com.projects.trending.foodyster.ui.fragments.favourites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.projects.trending.foodyster.R
 
 
 class FavouriteRecipesFragment : Fragment() {
