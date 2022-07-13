@@ -1,4 +1,4 @@
-package com.projects.trending.foodyster
+package com.projects.trending.foodyster.data.network
 
 
 import com.projects.trending.foodyster.models.FoodRecipe
@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
 interface FoodRecipesApi {
+
 
     @GET("/recipes/complexSearch")
     suspend fun getRecipes(

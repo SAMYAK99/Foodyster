@@ -11,7 +11,6 @@ import com.projects.trending.foodyster.R
 class FavouriteRecipesFragment : Fragment() {
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
