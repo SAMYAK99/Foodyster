@@ -1,7 +1,9 @@
 package com.projects.trending.foodyster.viewmodels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.projects.trending.foodyster.data.DataStoreRepository
 import com.projects.trending.foodyster.data.MealAndDietType
@@ -31,8 +33,12 @@ class RecipesViewModel @Inject constructor
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
 
+    var networkStatus = false
+    var backOnline = false
+
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
 
     fun saveMealAndDietType(mealType : String ,mealTypeId : Int , dietType :String ,dietTypeId : Int) =
@@ -41,6 +47,10 @@ class RecipesViewModel @Inject constructor
         }
 
 
+    private fun saveBackOnline(backOnline: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveBackOnline(backOnline)
+        }
 
 
 
@@ -65,5 +75,18 @@ class RecipesViewModel @Inject constructor
         queries[QUERY_FILL_INGREDIENTS] = "true"
 
         return queries
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
+            // persist back online
+            saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "Yeah!! Back online.", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
+            }
+        }
     }
 }
