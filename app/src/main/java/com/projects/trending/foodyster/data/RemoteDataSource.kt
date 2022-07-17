@@ -1,5 +1,6 @@
-package com.projects.trending.foodyster.data.network
+package com.projects.trending.foodyster.data
 
+import com.projects.trending.foodyster.data.network.FoodRecipesApi
 import com.projects.trending.foodyster.models.FoodRecipe
 import retrofit2.Response
 import javax.inject.Inject
@@ -12,4 +13,9 @@ class RemoteDataSource @Inject constructor(private  val foodRecipesApi: FoodReci
     suspend fun getRecipes(queries: Map<String, String>): Response<FoodRecipe> {
         return foodRecipesApi.getRecipes(queries)
     }
+
+    suspend fun searchRecipes(searchQuery: Map<String, String>): Response<FoodRecipe> {
+        return foodRecipesApi.searchRecipes(searchQuery)
+    }
+
 }
