@@ -17,6 +17,9 @@
             android:name="backFromBottomSheet"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_recipesFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/favouriteRecipesFragment"
@@ -39,4 +42,13 @@
             app:popUpTo="@id/recipesFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <activity
+        android:id="@+id/detailsActivity"
+        android:name="com.projects.trending.foodyster.ui.DetailsActivity"
+        android:label="Details"
+        tools:layout="@layout/activity_details">
+        <argument
+            android:name="result"
+            app:argType="com.projects.trending.foodyster.models.Result" />
+    </activity>
 </navigation>

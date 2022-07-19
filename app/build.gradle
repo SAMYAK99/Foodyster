@@ -106,6 +106,8 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 
-    // Jsoup
+    // Jsoup : Removing html content and extract data from text
+    // IT is used to parse html elements
     implementation 'org.jsoup:jsoup:1.13.1'
+
 }

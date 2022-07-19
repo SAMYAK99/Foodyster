@@ -6,7 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
 import com.projects.trending.foodyster.data.Repository
-import com.projects.trending.foodyster.data.database.RecipesEntity
+import com.projects.trending.foodyster.data.database.entites.FavoritesEntity
+import com.projects.trending.foodyster.data.database.entites.RecipesEntity
 import com.projects.trending.foodyster.models.FoodRecipe
 import com.projects.trending.foodyster.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,8 @@ class MainViewModel @Inject constructor(
     /** ROOM DATABASE */
 
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
+
 
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
@@ -32,12 +35,27 @@ class MainViewModel @Inject constructor(
             repository.local.insertRecipes(recipesEntity)
         }
 
+    fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoriteRecipes(favoritesEntity)
+        }
+
+    fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoriteRecipe(favoritesEntity)
+        }
+
+    fun deleteAllFavoriteRecipes() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavoriteRecipes()
+        }
+
 
 
     /** RETROFIT SECTION */
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
-
     var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)

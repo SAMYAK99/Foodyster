@@ -1,4 +1,4 @@
-package com.projects.trending.foodyster.data.database
+package com.projects.trending.foodyster.data.database.entites
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import com.projects.trending.foodyster.data.database.RecipesEntity
+import com.projects.trending.foodyster.data.database.entites.RecipesEntity
 import com.projects.trending.foodyster.models.FoodRecipe
 import com.projects.trending.foodyster.utils.NetworkResult
 
