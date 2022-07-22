@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/drawable/ic_bookmark.xml" value="0.1465" />
+        <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/drawable/ic_delete.xml" value="0.1465" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/drawable/my_nav.xml" value="0.105" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/activity_details.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/activity_main.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/favorite_recipes_row_layout.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/fragment_favourite_recipes.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/fragment_food_jokes.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/fragment_ingredients.xml" value="0.25" />
@@ -18,6 +21,7 @@
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/layout/recipes_row_layout.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/menu/details_menu.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/menu/favorite_recipes_menu.xml" value="0.25" />
+        <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/menu/favorites_contextual_menu.xml" value="0.264" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/menu/nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/StreamerX/AndroidStudioProject/Foodyster/app/src/main/res/menu/recipes_menu.xml" value="0.25" />
       </map>

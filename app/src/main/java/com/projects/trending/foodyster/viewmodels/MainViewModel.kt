@@ -118,6 +118,9 @@ class MainViewModel @Inject constructor(
             response.code() == 402 -> {
                 return NetworkResult.Error("API Key Limited.")
             }
+            response.code() == 429 -> {
+                return NetworkResult.Error("Resource has been exhausted")
+            }
             response.body()!!.results.isNullOrEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }

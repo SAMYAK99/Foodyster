@@ -152,7 +152,7 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
     private fun searchApiData(searchQuery: String) {
         showShimmerEffect()
         mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
-        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner, { response ->
+        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
@@ -172,7 +172,7 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     private fun loadDataFromCache() {
