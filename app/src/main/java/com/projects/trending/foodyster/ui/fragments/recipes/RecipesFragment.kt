@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +23,7 @@ import com.projects.trending.foodyster.viewmodels.MainViewModel
 import com.projects.trending.foodyster.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
@@ -81,7 +83,8 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
         }
 
         // Checking the status of Network Listener class
-        lifecycleScope.launch{
+        // Used launchWhenStarted fixes issue of network connection state
+        lifecycleScope.launchWhenStarted{
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                 .collect(){ status->

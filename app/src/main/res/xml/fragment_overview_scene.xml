@@ -26,9 +26,7 @@
                android:alpha="0" />
        </KeyFrameSet>
         <OnSwipe motion:touchAnchorSide="bottom" />
-        <OnSwipe
-            motion:touchAnchorId="@+id/main_imageView"
-            motion:touchAnchorSide="bottom" />
+
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
