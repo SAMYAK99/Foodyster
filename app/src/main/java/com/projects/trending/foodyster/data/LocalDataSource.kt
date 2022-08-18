@@ -2,6 +2,7 @@ package com.projects.trending.foodyster.data
 
 import com.projects.trending.foodyster.data.database.RecipesDao
 import com.projects.trending.foodyster.data.database.entites.FavoritesEntity
+import com.projects.trending.foodyster.data.database.entites.FoodJokeEntity
 import com.projects.trending.foodyster.data.database.entites.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -31,6 +32,13 @@ class LocalDataSource @Inject constructor(private val recipesDao: RecipesDao) {
 
     suspend fun deleteAllFavoriteRecipes() {
         recipesDao.deleteAllFavoriteRecipes()
+    }
+
+    fun readFoodJoke(): Flow<List<FoodJokeEntity>> {
+        return recipesDao.readFoodJoke()
+    }
+    suspend fun insertFoodJoke(foodJokeEntity: FoodJokeEntity) {
+        recipesDao.insertFoodJoke(foodJokeEntity)
     }
 
 }

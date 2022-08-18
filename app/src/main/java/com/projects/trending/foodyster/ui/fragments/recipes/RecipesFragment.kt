@@ -3,27 +3,25 @@ package com.projects.trending.foodyster.ui.fragments.recipes
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.projects.trending.foodyster.viewmodels.MainViewModel
 import com.projects.trending.foodyster.R
 import com.projects.trending.foodyster.adapters.RecipesAdapter
 import com.projects.trending.foodyster.databinding.FragmentRecipesBinding
 import com.projects.trending.foodyster.utils.NetworkListener
 import com.projects.trending.foodyster.utils.NetworkResult
 import com.projects.trending.foodyster.utils.observeOnce
+import com.projects.trending.foodyster.viewmodels.MainViewModel
 import com.projects.trending.foodyster.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.*
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -45,6 +43,14 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
 
+
+    // Fixing Memory Leaks
+    override fun onResume() {
+        super.onResume()
+        if(mainViewModel.recyclerViewState != null){
+            binding.recyclerview.layoutManager?.onRestoreInstanceState(mainViewModel.recyclerViewState)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +127,8 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
           }
       }
     }
+
+
 
     // For Requesting the data from API
     private fun requestApiData() {
@@ -229,9 +237,12 @@ class RecipesFragment : Fragment() , SearchView.OnQueryTextListener {
     // preventing memory leaks : whenever recipes binding is destroyed is set to null
     override fun onDestroy() {
         super.onDestroy()
+        mainViewModel.recyclerViewState =
+            binding.recyclerview.layoutManager?.onSaveInstanceState()
         _binding  = null
     }
 
 
 
 }
+

@@ -8,7 +8,10 @@
         <item name="actionModeBackground">@color/contextualActionBarColor</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="actionBarStyle">@style/CustomActionBarStyle</item>
+
     </style>
+     <style name="SplashScreenStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+     </style>
 
 
     <style name="CustomActionBarStyle" parent="Widget.MaterialComponents.ActionBar.Primary">
@@ -42,8 +45,8 @@
 
     <style name="CustomBottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="backgroundTint">@color/bottomNavBackground</item>
-        <item name="itemIconTint">@color/bottom_nav_view_item_color</item>
-        <item name="itemTextColor">@color/bottom_nav_view_item_color</item>
+        <item name="itemIconTint">@color/bottomNavCheckedItemColor</item>
+        <item name="itemTextColor">@color/bottomNavCheckedItemColor</item>
     </style>
 
 </resources>

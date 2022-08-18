@@ -41,5 +41,7 @@
     <string name="save_to_favourites">Save to Favourites</string>
     <string name="no_food_recipes">No Food Recipes</string>
     <string name="delete_favourite_menu">Delete Favourite Menu</string>
+    <string name="share">Share</string>
+    <string name="your_one_stop_destination_for_all_your_cravings">your one stop destination for all your cravings</string>
 
 </resources>
