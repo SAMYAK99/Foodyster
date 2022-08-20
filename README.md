@@ -6,7 +6,7 @@ Foodyster is a minimalistic food recipes app  📱 built to demonstrate the use 
 ![Sample App shield](https://img.shields.io/badge/App-Sample-green.svg)
 ![Artifact badge local, or jcenter or clonerepo](https://img.shields.io/badge/Artifact-JCenter-green.svg)
 ![Minimum API Level](https://img.shields.io/badge/Min%20API%20Level-21-green)
-![Maximum API Level](https://img.shields.io/badge/Max%20API%20Level-30-orange)
+![Maximum API Level](https://img.shields.io/badge/Max%20API%20Level-32-orange)
 ![GitHub repo size](https://img.shields.io/github/repo-size/SAMYAK99/Foodyster)
 
 ## Features 🚀
@@ -40,7 +40,7 @@ This project follows the famous MVVM architecture and best practices from Google
 
 ## Requirements 🎯 
 - Android 5.0 and Above
-- Min sdk version 22
+- Min sdk version 21
 
 ## Permissions 💻
 - Internet
