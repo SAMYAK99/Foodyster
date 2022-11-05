@@ -1,6 +1,9 @@
 package com.projects.trending.foodyster.ui.fragments.overview
 
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +12,22 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import coil.load
 import com.projects.trending.foodyster.R
+import com.projects.trending.foodyster.databinding.FragmentOverviewBinding
+import com.projects.trending.foodyster.databinding.FragmentRecipesBinding
 import com.projects.trending.foodyster.models.Result
 import com.projects.trending.foodyster.utils.Constants.Companion.RECIPE_RESULT_KEY
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import org.jsoup.Jsoup
+import org.w3c.dom.Text
+import java.util.*
 
 class OverviewFragment : Fragment(R.layout.fragment_overview) {
+
+
+//    private var _binding : FragmentOverviewBinding ? = null
+//    private val binding get() = _binding!!
+      private lateinit var tts : TextToSpeech
+      private lateinit var recipeSummary : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +47,8 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        _binding = FragmentOverviewBinding.inflate(inflater, container, false)
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_overview, container, false)
 
@@ -52,7 +67,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         myBundle?.summary.let {
             val summary = Jsoup.parse(it).text()
             view.summary_textView.text = summary
-
+            recipeSummary = summary
         }
 
 
@@ -81,8 +96,27 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             view.cheap_textView.setTextColor(ContextCompat.getColor(requireContext() ,R.color.green))
         }
 
+//        binding.playBtn.setOnClickListener{
+//            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//            intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Say Something")
+//            startActivityForResult(intent,100)
+//        }
+
+        view.playBtn.setOnClickListener{
+            tts = TextToSpeech(requireContext(),TextToSpeech.OnInitListener {
+                if(it == TextToSpeech.SUCCESS){
+                    tts.setLanguage(Locale.ENGLISH)
+                   tts.setSpeechRate(1.0f)
+                    tts.speak(recipeSummary , TextToSpeech.QUEUE_ADD, null)
+                }
+            })
+        }
 
         return view
+
     }
+
 
 }

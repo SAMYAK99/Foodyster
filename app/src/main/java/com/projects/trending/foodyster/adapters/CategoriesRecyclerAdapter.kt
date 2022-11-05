@@ -1,32 +1,19 @@
 package com.projects.trending.foodyster.adapters
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.projects.trending.foodyster.R
 import com.projects.trending.foodyster.databinding.CategoriesCardBinding
 import com.projects.trending.foodyster.models.Category
-import com.projects.trending.foodyster.utils.Constants
-import kotlinx.android.synthetic.main.ingredients_row_layout.view.*
-
-class CategoriesRecyclerAdapter : RecyclerView.Adapter<CategoriesRecyclerAdapter.CategoryViewHolder>() {
-    private var categoryList:List<Category> = ArrayList()
-    private lateinit var onItemClick: OnItemCategoryClicked
+import com.projects.trending.foodyster.ui.fragments.categories.CategoriesFragmentDirections
 
 
-    fun setCategoryList(categoryList: List<Category>){
-        this.categoryList = categoryList
-        notifyDataSetChanged()
-    }
+class CategoriesRecyclerAdapter(private val mList: List<Category>) : RecyclerView.Adapter<CategoriesRecyclerAdapter.CategoryViewHolder>() {
 
-
-
-
-
-    fun onItemClicked(onItemClick: OnItemCategoryClicked){
-        this.onItemClick = onItemClick
-    }
 
     class CategoryViewHolder(val binding:CategoriesCardBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -36,24 +23,28 @@ class CategoriesRecyclerAdapter : RecyclerView.Adapter<CategoriesRecyclerAdapter
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.binding.apply {
-            tvCategoryName.text = categoryList[position].strCategory
+            tvCategoryName.text =mList[position].title
 
-            imgCategory.load(categoryList[position].strCategoryThumb){
+            imgCategory.load(mList[position].image){
                 crossfade(600)
                 error(R.drawable.ic_error_placeholder)
             }
 
         }
 
-        holder.itemView.setOnClickListener {
-            onItemClick.onClickListener(categoryList[position])
-        }
-
+       holder.itemView.setOnClickListener{
+           val action =
+               CategoriesFragmentDirections.actionCategoriesFragment2ToCategoriesDetailsFragment(mList[position].title)
+           it.findNavController().navigate(action)
+       }
 
     }
 
+
+
+
     override fun getItemCount(): Int {
-        return categoryList.size
+        return mList.size
     }
 
     interface OnItemCategoryClicked{

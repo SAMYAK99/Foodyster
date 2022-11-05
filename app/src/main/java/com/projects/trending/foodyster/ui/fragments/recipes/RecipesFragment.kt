@@ -17,9 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.projects.trending.foodyster.R
 import com.projects.trending.foodyster.adapters.RecipesAdapter
 import com.projects.trending.foodyster.adapters.SliderAdapter
-import com.projects.trending.foodyster.bindingAdapters.RecipesRowBinding
 import com.projects.trending.foodyster.databinding.FragmentRecipesBinding
-import com.projects.trending.foodyster.databinding.RecipesRowLayoutBinding
 import com.projects.trending.foodyster.utils.NetworkListener
 import com.projects.trending.foodyster.utils.NetworkResult
 import com.projects.trending.foodyster.utils.observeOnce

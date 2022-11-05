@@ -15,13 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projects.trending.foodyster.R
+import com.projects.trending.foodyster.adapters.CategoriesDetailsAdapter
 import com.projects.trending.foodyster.adapters.RecipesAdapter
 import com.projects.trending.foodyster.adapters.SliderAdapter
 import com.projects.trending.foodyster.bindingAdapters.RecipesRowBinding
 import com.projects.trending.foodyster.databinding.FragmentCategoriesDetailsBinding
-import com.projects.trending.foodyster.databinding.FragmentRecipesBinding
-import com.projects.trending.foodyster.databinding.RecipesRowLayoutBinding
-import com.projects.trending.foodyster.ui.fragments.recipes.RecipesFragmentArgs
 import com.projects.trending.foodyster.utils.NetworkListener
 import com.projects.trending.foodyster.utils.NetworkResult
 import com.projects.trending.foodyster.utils.observeOnce
@@ -38,7 +36,8 @@ class CategoriesDetailsFragment : Fragment() {
 
 
     // Using safe args to access arguments passed from navigation
-    private val args by navArgs<RecipesFragmentArgs>()
+    // get the arguments from the Registration fragment
+    private val args : CategoriesDetailsFragmentArgs by navArgs()
 
 
     private lateinit var networkListener: NetworkListener
@@ -49,7 +48,7 @@ class CategoriesDetailsFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val mAdapter by lazy { RecipesAdapter() }
+    private val mAdapter by lazy { CategoriesDetailsAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
 
@@ -83,25 +82,20 @@ class CategoriesDetailsFragment : Fragment() {
 
         // Binding for recipes class fragment
         _binding = FragmentCategoriesDetailsBinding.inflate(inflater, container, false)
-        // because in fragment recipes model we are going to use lifecycle models and lifecycle object
 
 
-//        binding.lifecycleOwner = this
-        // SETTING CURRENT MAIN VIEW MODEL
-//        binding.mainViewModel = mainViewModel
+        val title = args.data
+        searchApiData(title)
 
         setHasOptionsMenu(true)
         setRecyclerView()
-//        setSliderLayout()
+
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
             recipesViewModel.backOnline = it
         }
 
 
-
-        // Checking the status of Network Listener class
-        // Used launchWhenStarted fixes issue of network connection state
         lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
@@ -112,65 +106,9 @@ class CategoriesDetailsFragment : Fragment() {
                     recipesViewModel.networkStatus = status
                     recipesViewModel.showNetworkStatus()
 
-                    // Whenever network changes we call Read Database
-                    readDatabase()
                 }
         }
-
-
-
-
-
-
         return binding.root
-    }
-
-
-
-    /*
-    * First fetch the data each and every time from local db. if local db is
-    * empty or we explicitally makes some other request then only make network call
-    * */
-    private fun readDatabase() {
-        lifecycleScope.launch() {
-            // Function called only once due to my_extension function created in util class
-            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                // everytime we get back from bottom sheet we will be request new data
-                if (database.isNotEmpty() && !args.backFromBottomSheet) {
-                    mAdapter.setData(database[0].foodRecipe)
-                    hideShimmerEffect()
-                } else {
-                    requestApiData()
-                }
-            }
-        }
-    }
-
-
-    // For Requesting the data from API
-    private fun requestApiData() {
-        mainViewModel.getRecipes(recipesViewModel.applyQueries())
-        mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    hideShimmerEffect()
-                    response.data?.let { mAdapter.setData(it) }
-
-                }
-                is NetworkResult.Error -> {
-                    hideShimmerEffect()
-                    loadDataFromCache()
-                    Toast.makeText(
-                        requireContext(),
-                        "Recipes Not Found",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    showShimmerEffect()
-                }
-            }
-        }
     }
 
     // For Searching data from the API
@@ -215,32 +153,6 @@ class CategoriesDetailsFragment : Fragment() {
         binding.recyclerviewDetails.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
-
-
-    // Creating options Menu : Search
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.recipes_menu,menu)
-//        val search = menu.findItem(R.id.menu_search)
-//        val searchView = search.actionView as? SearchView
-//        searchView?.isSubmitButtonEnabled = true
-//        searchView?.setOnQueryTextListener(this)
-//
-//    }
-
-
-//    override fun onQueryTextSubmit(query: String?): Boolean {
-//        if (query != null) {
-//            searchApiData(query)
-//        }
-//        return true
-//    }
-//
-//    override fun onQueryTextChange(newText: String?): Boolean {
-//       return  true
-//    }
-
-
-
 
     private fun showShimmerEffect() {
         binding.shimmerFrameLayoutDetails.startShimmer()

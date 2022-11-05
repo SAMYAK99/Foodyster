@@ -1,7 +1,6 @@
 package com.projects.trending.foodyster.data
 
 import com.projects.trending.foodyster.data.network.FoodRecipesApi
-import com.projects.trending.foodyster.models.CategoryResponse
 import com.projects.trending.foodyster.models.FoodJoke
 import com.projects.trending.foodyster.models.FoodRecipe
 import retrofit2.Response
