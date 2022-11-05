@@ -1,4 +1,4 @@
-package com.projects.trending.foodyster.ui.fragments.recipes
+package com.projects.trending.foodyster.ui.fragments.categories
 
 import android.os.Bundle
 import android.util.Log
@@ -18,8 +18,10 @@ import com.projects.trending.foodyster.R
 import com.projects.trending.foodyster.adapters.RecipesAdapter
 import com.projects.trending.foodyster.adapters.SliderAdapter
 import com.projects.trending.foodyster.bindingAdapters.RecipesRowBinding
+import com.projects.trending.foodyster.databinding.FragmentCategoriesDetailsBinding
 import com.projects.trending.foodyster.databinding.FragmentRecipesBinding
 import com.projects.trending.foodyster.databinding.RecipesRowLayoutBinding
+import com.projects.trending.foodyster.ui.fragments.recipes.RecipesFragmentArgs
 import com.projects.trending.foodyster.utils.NetworkListener
 import com.projects.trending.foodyster.utils.NetworkResult
 import com.projects.trending.foodyster.utils.observeOnce
@@ -32,8 +34,7 @@ import kotlinx.coroutines.launch
 
 
 @ExperimentalCoroutinesApi // For using Network Listener Class
-@AndroidEntryPoint
-class RecipesFragment : Fragment() {
+class CategoriesDetailsFragment : Fragment() {
 
 
     // Using safe args to access arguments passed from navigation
@@ -42,7 +43,7 @@ class RecipesFragment : Fragment() {
 
     private lateinit var networkListener: NetworkListener
 
-    private var _binding: FragmentRecipesBinding? = null
+    private var _binding: FragmentCategoriesDetailsBinding? = null
 
 
 
@@ -58,7 +59,7 @@ class RecipesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (mainViewModel.recyclerViewState != null) {
-            binding.recyclerview.layoutManager?.onRestoreInstanceState(mainViewModel.recyclerViewState)
+            binding.recyclerviewDetails.layoutManager?.onRestoreInstanceState(mainViewModel.recyclerViewState)
         }
 //        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
@@ -81,17 +82,17 @@ class RecipesFragment : Fragment() {
 
 
         // Binding for recipes class fragment
-        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        _binding = FragmentCategoriesDetailsBinding.inflate(inflater, container, false)
         // because in fragment recipes model we are going to use lifecycle models and lifecycle object
 
 
-        binding.lifecycleOwner = this
+//        binding.lifecycleOwner = this
         // SETTING CURRENT MAIN VIEW MODEL
-        binding.mainViewModel = mainViewModel
+//        binding.mainViewModel = mainViewModel
 
         setHasOptionsMenu(true)
         setRecyclerView()
-        setSliderLayout()
+//        setSliderLayout()
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
             recipesViewModel.backOnline = it
@@ -116,31 +117,10 @@ class RecipesFragment : Fragment() {
                 }
         }
 
-        binding.recipesFab.setOnClickListener {
-            if (recipesViewModel.networkStatus) {
-                // this action comes from nav graph joining
-                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
-            } else {
-                recipesViewModel.showNetworkStatus()
-            }
-        }
 
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.searchView.clearFocus()
-                if (query != null) {
-                    searchApiData(query)
-                }
-                return true
 
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-               return  true
-            }
-        })
 
         return binding.root
     }
@@ -231,8 +211,8 @@ class RecipesFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        binding.recyclerview.adapter = mAdapter
-        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerviewDetails.adapter = mAdapter
+        binding.recyclerviewDetails.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
 
@@ -263,69 +243,26 @@ class RecipesFragment : Fragment() {
 
 
     private fun showShimmerEffect() {
-        binding.shimmerFrameLayout.startShimmer()
-        binding.shimmerFrameLayout.visibility = View.VISIBLE
-        binding.recyclerview.visibility = View.GONE
+        binding.shimmerFrameLayoutDetails.startShimmer()
+        binding.shimmerFrameLayoutDetails.visibility = View.VISIBLE
+        binding.recyclerviewDetails.visibility = View.GONE
     }
 
     private fun hideShimmerEffect() {
-        binding.shimmerFrameLayout.stopShimmer()
-        binding.shimmerFrameLayout.visibility = View.GONE
-        binding.recyclerview.visibility = View.VISIBLE
+        binding.shimmerFrameLayoutDetails.stopShimmer()
+        binding.shimmerFrameLayoutDetails.visibility = View.GONE
+        binding.recyclerviewDetails.visibility = View.VISIBLE
     }
 
     // preventing memory leaks : whenever recipes binding is destroyed is set to null
     override fun onDestroy() {
         super.onDestroy()
         mainViewModel.recyclerViewState =
-            binding.recyclerview.layoutManager?.onSaveInstanceState()
+            binding.recyclerviewDetails.layoutManager?.onSaveInstanceState()
         _binding = null
     }
 
 
-    private fun setSliderLayout() {
 
-        imageUrl = ArrayList()
-
-        binding.slider.apply {
-
-            // on below line we are adding data to our image url array list.
-            imageUrl =
-                (imageUrl + "https://www.curiouscuisiniere.com/wp-content/uploads/2019/03/Mapo-Tofu-Serving-Bowl.450.jpg") as ArrayList<String>
-
-            imageUrl =
-                (imageUrl + "https://www.curiouscuisiniere.com/wp-content/uploads/2018/10/Pad-krapow-Gai-Thai-Basil-Chicken-2.450.jpg") as ArrayList<String>
-
-            imageUrl =
-                (imageUrl + "https://img.delicious.com.au/wtXjU6-1/w1200/del/2017/02/pumpkin-dhal-42336-3.jpg") as ArrayList<String>
-
-            imageUrl =
-                (imageUrl + "https://cook.fnr.sndimg.com/content/dam/images/cook/fullset/2011/1/26/0/CC_cooked-dumplings_s4x3.jpg.rend.hgtvcom.616.462.suffix/1357776171297.jpeg") as ArrayList<String>
-
-            // on below line we are initializing our
-            // slider adapter and adding our list to it.
-            val sliderAdapter = SliderAdapter( imageUrl)
-
-            // on below line we are setting auto cycle direction
-            // for our slider view from left to right.
-            this.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-
-            // on below line we are setting adapter for our slider.
-            this.setSliderAdapter(sliderAdapter)
-
-            // on below line we are setting scroll time
-            // in seconds for our slider view.
-            this.scrollTimeInSec = 3
-
-            // on below line we are setting auto cycle
-            // to true to auto slide our items.
-            this.isAutoCycle = true
-
-            // on below line we are calling start
-            // auto cycle to start our cycle.
-            this.startAutoCycle()
-
-        }
-    }
 }
 

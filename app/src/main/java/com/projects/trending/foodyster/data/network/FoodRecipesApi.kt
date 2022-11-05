@@ -1,9 +1,13 @@
 package com.projects.trending.foodyster.data.network
 
 
+import com.projects.trending.foodyster.models.CategoryResponse
 import com.projects.trending.foodyster.models.FoodJoke
 import com.projects.trending.foodyster.models.FoodRecipe
+import retrofit2.Call
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
@@ -24,6 +28,9 @@ interface FoodRecipesApi {
     suspend fun getFoodJoke(
         @Query("apiKey") apiKey: String
     ): Response<FoodJoke>
+
+    @GET("categories.php")
+    fun getCategories(): Call<CategoryResponse>
 
 
 }

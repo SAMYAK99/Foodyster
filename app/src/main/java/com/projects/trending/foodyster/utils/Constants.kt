@@ -7,7 +7,7 @@ class Constants {
         const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         const val API_KEY = "068d6461981244be9debc4012f9a5b9f"
-
+        const val BASE_URL_CATEGORY = "https://www.themealdb.com/api/json/v1/1/"
         const val RECIPE_RESULT_KEY = "recipeBundle"
 
 

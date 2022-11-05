@@ -1,6 +1,7 @@
 package com.projects.trending.foodyster.data
 
 import com.projects.trending.foodyster.data.network.FoodRecipesApi
+import com.projects.trending.foodyster.models.CategoryResponse
 import com.projects.trending.foodyster.models.FoodJoke
 import com.projects.trending.foodyster.models.FoodRecipe
 import retrofit2.Response
@@ -22,5 +23,6 @@ class RemoteDataSource @Inject constructor(private  val foodRecipesApi: FoodReci
     suspend fun getFoodJoke(apiKey: String): Response<FoodJoke> {
         return foodRecipesApi.getFoodJoke(apiKey)
     }
+
 
 }

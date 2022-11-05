@@ -1,6 +1,7 @@
 package com.projects.trending.foodyster.ui.fragments.overview
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,21 @@ import com.projects.trending.foodyster.utils.Constants.Companion.RECIPE_RESULT_K
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import org.jsoup.Jsoup
 
-class OverviewFragment : Fragment() {
+class OverviewFragment : Fragment(R.layout.fragment_overview) {
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Animations
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        )
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +46,7 @@ class OverviewFragment : Fragment() {
         view.title_textView.text = myBundle?.title
         view.likes_textView.text = myBundle?.aggregateLikes.toString()
         view.time_textView.text = myBundle?.readyInMinutes.toString()
+
 
         // Parsing html tags and showing only data without html tags
         myBundle?.summary.let {

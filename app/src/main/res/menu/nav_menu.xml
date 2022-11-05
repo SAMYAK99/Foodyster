@@ -7,6 +7,9 @@
         android:title="@string/recipes"
         />
 
+    <item android:id="@+id/categoriesFragment2"
+        android:icon="@drawable/ic_categories"
+        android:title="Categories"/>
     <item
         android:id="@+id/favouriteRecipesFragment"
         android:title="@string/favourites"

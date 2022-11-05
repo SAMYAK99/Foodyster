@@ -49,4 +49,15 @@
         <item name="itemTextColor">@color/bottomNavCheckedItemColor</item>
     </style>
 
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="expandedBarTextStyle" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+
+    </style>
 </resources>

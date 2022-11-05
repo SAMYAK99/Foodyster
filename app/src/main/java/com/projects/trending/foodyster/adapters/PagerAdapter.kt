@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.room.PrimaryKey
 import com.projects.trending.foodyster.ui.fragments.ingredients.IngredientsFragment
 
-class PagerAdapter (
+open class PagerAdapter (
     private val resultBundle: Bundle ,
     private val fragment: ArrayList<Fragment> ,
     private val title : ArrayList<String> ,

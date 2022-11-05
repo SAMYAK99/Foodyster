@@ -55,4 +55,32 @@
             android:name="result"
             app:argType="com.projects.trending.foodyster.models.Result" />
     </activity>
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.projects.trending.foodyster.ui.SplashScreen"
+        android:label="activity_splash_screen"
+        tools:layout="@layout/activity_splash_screen" />
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.projects.trending.foodyster.ui.onBoarding.viewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" />
+    <fragment
+        android:id="@+id/categoriesFragment2"
+        android:name="com.projects.trending.foodyster.ui.fragments.categories.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment2_to_categoriesDetailsFragment"
+            app:destination="@id/categoriesDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesDetailsFragment"
+        android:name="com.projects.trending.foodyster.ui.fragments.categories.CategoriesDetailsFragment"
+        android:label="fragment_categories_details"
+        tools:layout="@layout/fragment_categories_details" >
+        <action
+            android:id="@+id/action_categoriesDetailsFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
+    </fragment>
 </navigation>
