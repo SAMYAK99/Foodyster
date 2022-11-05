@@ -11,10 +11,22 @@ Foodyster is a minimalistic food recipes app  📱 built to demonstrate the use 
 
 ## Features 🚀
 
+- Search any Recipe of your choice
+- Pick among differnt Categories
+- Listen to any Recipe on the Go
 - Get detailed decription all the recipes
 - Bookmark your favourite recipes.
 - Get the recipes details within the application.
-- Search for recipes.
+- Access the recipe using offline caching without internt connection
+- Random Food Jokes to share it with your friends
+
+# Screenshots
+
+## Light Mode
+<p> <img src="./Screenshots/light.png" > </p>
+
+#3 Dark Mode
+<p> <img src="./Screenshots/dark.png" > </p>
 
 ## Built With 🛠
 
@@ -35,7 +47,7 @@ Foodyster is a minimalistic food recipes app  📱 built to demonstrate the use 
 ## Architecture 🗼
 
 This project follows the famous MVVM architecture and best practices from Google's 
-
+<p> <img src="./Screenshots/mvvm.png" > </p>
 
 
 ## Requirements 🎯 
