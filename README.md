@@ -17,7 +17,7 @@ Foodyster is a minimalistic food recipes app  📱 built to demonstrate the use 
 - Get detailed decription all the recipes
 - Bookmark your favourite recipes.
 - Get the recipes details within the application.
-- Access the recipe using offline caching without internt connection
+- Access the recipe using offline caching without internet connection
 - Random Food Jokes to share it with your friends
 
 # Screenshots
@@ -25,7 +25,7 @@ Foodyster is a minimalistic food recipes app  📱 built to demonstrate the use 
 ## Light Mode
 <p> <img src="./Screenshots/light.png" > </p>
 
-#3 Dark Mode
+## Dark Mode
 <p> <img src="./Screenshots/dark.png" > </p>
 
 ## Built With 🛠
